@@ -7,20 +7,22 @@ public class db {
         String url = "jdbc:sqlserver://HP2020;databaseName=SabaDB;integratedSecurity= true;encrypt=false";
         String query = "SELECT * FROM Students";
 //        String insertQuery = "INSERT INTO Students(sname , city) VALUES (?,?)";
-        String updateQuery = "UPDATE Students SET sname = ? WHERE city =  ?";
+//        String updateQuery = "UPDATE Students SET sname = ? WHERE city =  ?";
+        String deleteQuery = "DELETE FROM  Students  WHERE sname =  ?";
 
         System.out.println(url);
         try {
             try(Connection connection = DriverManager.getConnection(url)) {
-                try (PreparedStatement preparedStatement = connection.prepareStatement(updateQuery)) {
+                try (PreparedStatement preparedStatement = connection.prepareStatement(deleteQuery)) {
 
-                    preparedStatement.setString(1, "Missy");
-                    preparedStatement.setString(2, "US");
+                    preparedStatement.setString(1, "saba");
 
 
-                    int rowsUpdated= preparedStatement.executeUpdate();
-                    if (rowsUpdated > 0) {
-                        System.out.println("A student was updated successfully!");
+                    int rowsDeleted= preparedStatement.executeUpdate();
+                    if (rowsDeleted > 0) {
+                        System.out.println("Student record deleted successfully!");
+                    } else {
+                        System.out.println("No student found with the specified name.");
                     }
                 }
 
